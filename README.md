@@ -71,3 +71,43 @@ var map = L.map('map', {
 |zoomAnimation|Boolean|depends|tile变焦动画是否可用，通常默认在所有浏览器中都支持CSS3 Transitions属性 ，android例外|
 |zoomAnimationThreshold|Number|4|如果变焦比例超过设定值，不会产生变焦动画|
 |markerZoomAnimation|Boolean|depends|标记是否随地图的变焦操作而放大或缩小，如果被禁用，标记会在动画时消失，通常默认在所有浏览器中都支持CSS3 Transitions属性，android例外|
+
+#### 4、事件
+你可以用这些方法订阅以下事件      
+
+|Event|Data|Description|
+|:---:|:---:|:---|
+|click|MouseEvent|用户点击或触摸地图时触发|
+|dblclick|MouseEvent|用户双击或连续两次触摸地图时触发|
+|mousedown|MouseEvent|用户按下鼠标按键时触发|
+|mouseup|MouseEvent|用户释放鼠标按键时触发|
+|mouseover|MouseEvent|鼠标进入地图时触发|
+|mouseout|MouseEvent|鼠标离开地图时触发|
+|mousemove|MouseEvent|鼠标在地图上移动时触发|
+|contextmenu|MouseEvent|当用户在地图上按下鼠标右键时触发，如果这个事件上有注册事件，则浏览器默认的右键菜单被禁用，在移动端当用户长按屏幕同样触发|
+|focus|Event|当用户通过设置标记、点击或平移聚焦地图时触发|
+|blur|Event|当地图失去焦点时触发|
+|preclick|MouseEvent|当鼠标在地图上点击之前触发（当你想要一些事件，在任何已存在的点击事件开始运行之前，点击鼠标发生）|
+|load|Event|当地图初始化时触发。（当地图的中心点和缩放比例初次设置时）|
+|unload|Event|当地图通过remove方法移除时发生|
+|viewreset|Event|当地图需要重绘内容时触发（通常在地图缩放和载入时发生）创建自定义的叠置图层时非常有用|
+|movestart|Event|地图视图开始改变时触发。（比如用户开始拖动地图）Fired when the view of the map starts changing (e.g. user starts dragging the map).|
+|move|Event|所有的地图视图移动时触发。Fired on any movement of the map view.|
+|moveend|Event|当地图视图结束改变时触发。（比如用户停止拖动地图）Fired when the view of the map stops changing (e.g. user stopped dragging the map).|
+|dragstart|Event|用户开始拖动地图时触发。Fired when the user starts dragging the map.|
+|drag|Event|用户拖动地图时不断重复地触发。Fired repeatedly while the user drags the map.|
+|dragend|DragEndEvent|用户停止拖动时触发。Fired when the user stops dragging the map.|
+|zoomstart|Event|当地图缩放即将发生时触发。（比如缩放动作开始前）Fired when the map zoom is about to change (e.g. before zoom animation).|
+|zoomend|Event|当地图缩放时触发。Fired when the map zoom changes.|
+|zoomlevelschange|Event|Fired when the number of zoomlevels on the map is changed due to adding or removing a layer.|
+|resize|ResizeEvent|Fired when the map is resized.|
+|autopanstart|Event|Fired when the map starts autopanning when opening a popup.|
+|layeradd|LayerEvent|Fired when a new layer is added to the map.|
+|layerremove|LayerEvent|Fired when some layer is removed from the map.|
+|baselayerchange|LayerEvent|Fired when the base layer is changed through the layer control.|
+|overlayadd|LayerEvent|Fired when an overlay is selected through the layer control.|
+|overlayremove|LayerEvent|Fired when an overlay is deselected through the layer control.|
+|locationfound|LocationEvent|Fired when geolocation (using the locate method) went successfully.|
+|locationerror|ErrorEvent|Fired when geolocation (using the locate method) failed.|
+|popupopen|PopupEvent|Fired when a popup is opened (using openPopup method).|
+|popupclose|PopupEvent|Fired when a popup is closed (using closePopup method).|
