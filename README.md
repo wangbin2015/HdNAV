@@ -31,14 +31,14 @@ var map = L.map('map', {
 ##### 交互选项
 |Option|Type|Default|Description|
 |---|:---:|---|:---:|
-|dragging|Boolean|true|Whether the map be draggable with mouse/touch or not.|
-|touchZoom|Boolean|true|Whether the map can be zoomed by touch-dragging with two fingers.|
-|scrollWheelZoom|Boolean|true|Whether the map can be zoomed by using the mouse wheel. If passed 'center', it will zoom to the center of the view regardless of where the mouse was.|
-|doubleClickZoom|Boolean|true|Whether the map can be zoomed in by double clicking on it and zoomed out by double clicking while holding shift. If passed 'center', double-click zoom will zoom to the center of the view regardless of where the mouse was.|
-|boxZoom|Boolean|true|Whether the map can be zoomed to a rectangular area specified by dragging the mouse while pressing shift.|
+|dragging|Boolean|true|地图是否可被鼠标或触摸拖动|
+|touchZoom|Boolean|true|地图是否可被两指缩放|
+|scrollWheelZoom|Boolean|true|地图是否可被鼠标滚轮缩放， If passed 'center', it will zoom to the center of the view regardless of where the mouse was.|
+|doubleClickZoom|Boolean|true|地图是否可以双击放大或者按住shift双击缩小If passed 'center', double-click zoom will zoom to the center of the view regardless of where the mouse was.|
+|boxZoom|Boolean|true|当按住shift键时，地图是否可被缩放到鼠标拖拽出的矩形的视图|
 |tap|Boolean|true|Enables mobile hacks for supporting instant taps (fixing 200ms click delay on iOS/Android) and touch holds (fired as contextmenu events).|
 |tapTolerance|Number|15|The max number of pixels a user can shift his finger during touch for it to be considered a valid tap.|
-|trackResize|Boolean|true|Whether the map automatically handles browser window resize to update itself.|
-|worldCopyJump|Boolean|false|With this option enabled, the map tracks when you pan to another "copy" of the world and seamlessly jumps to the original one so that all overlays like markers and vector layers are still visible.|
-|closePopupOnClick|Boolean|true|Set it to false if you don't want popups to close when user clicks the map.|
-|bounceAtZoomLimits|Boolean|true|Set it to false if you don't want the map to zoom beyond min/max zoom and then bounce back when pinch-zooming.|
+|trackResize|Boolean|true|浏览器窗口大小改变时，地图是否可以自动更新视图|
+|worldCopyJump|Boolean|false|当这个选项可用时，当你平移地图到其另一个领域时会被地图捕获到，并无缝地跳转到原始的领域以保证所有标注、矢量图层之类的覆盖物仍然可见|
+|closePopupOnClick|Boolean|true|当你不想用户点击地图关闭消息弹出框时，请将其设置为false|
+|bounceAtZoomLimits|Boolean|true|如果你不想变焦操作时超出设置的最大/最小视图，并且当修改缩放比例时弹回，请将其设置为false|
