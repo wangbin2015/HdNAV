@@ -91,8 +91,8 @@ var map = L.map('map', {
 |load|Event|当地图初始化时触发。（当地图的中心点和缩放比例初次设置时）|
 |unload|Event|当地图通过remove方法移除时发生|
 |viewreset|Event|当地图需要重绘内容时触发（通常在地图缩放和载入时发生）创建自定义的叠置图层时非常有用|
-|movestart|Event|地图视图开始改变时触发。（比如用户开始拖动地图）Fired when the view of the map starts changing (e.g. user starts dragging the map).|
-|move|Event|所有的地图视图移动时触发。Fired on any movement of the map view.|
+|movestart|Event|地图视图开始改变时触发。（比如用户开始拖动地图）|
+|move|Event|所有的地图视图移动时触发|
 |moveend|Event|当地图视图结束改变时触发。（比如用户停止拖动地图）Fired when the view of the map stops changing (e.g. user stopped dragging the map).|
 |dragstart|Event|用户开始拖动地图时触发。Fired when the user starts dragging the map.|
 |drag|Event|用户拖动地图时不断重复地触发。Fired repeatedly while the user drags the map.|
