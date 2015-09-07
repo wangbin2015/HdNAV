@@ -19,7 +19,7 @@ var map = L.map('map', {
 #### 3、可选参数
 ##### （1）地图状态选项
 |Option|Type|Default|Description|
-|---|:---:|---|:---:|
+|:---:|:---:|:---:|:---|
 |center|LatLng|null|初始化地图的地理中心|
 |zoom|Number|null|初始化地图的缩放|
 |layers|ILayer[]|null|初始化将要加载到地图上的图层|
@@ -30,7 +30,7 @@ var map = L.map('map', {
 
 ##### （2）交互选项
 |Option|Type|Default|Description|
-|---|:---:|---|:---:|
+|:---:|:---:|:---:|:---|
 |dragging|Boolean|true|地图是否可被鼠标或触摸拖动|
 |touchZoom|Boolean|true|地图是否可被两指缩放|
 |scrollWheelZoom|Boolean|true|地图是否可被鼠标滚轮缩放， If passed 'center', it will zoom to the center of the view regardless of where the mouse was.|
@@ -45,17 +45,29 @@ var map = L.map('map', {
 
 ##### （3）键盘操纵选项
 |Option|Type|Default|Description|
-|---|:---:|---|:---:|
+|:---:|:---:|:---:|:---|
 |keyboard|Boolean|true|使地图可聚焦，允许用户使用键盘方向键或者+/-操纵地图|
 |keyboardPanOffset|Number|80|平移补偿：确定按键盘方向键时地图平移的像素|
 |keyboardZoomOffset|Number|1|缩放补偿：确定键盘加减键对于的缩放级数|
 
 ##### （4）平移惯性选项
 |Option|Type|Default|Description|
-|---|:---:|---|:---:|
+|:---:|:---:|:---:|:---|
 |inertia|Boolean|true|如果该选项可用，平移地图时会有惯性效果，触屏设备体验更佳|
 |inertiaDeceleration|Number|3000|惯性移动减速的速率，单位是像素每秒的二次方|
 |inertiaMaxSpeed|Number|1500|惯性移动的最大速率，单位是像素每秒|
 |inertiaThreshold|Number|depends|释放鼠标或是触摸来停止惯性移动与移动停止之间的毫秒数，触摸设备默认值32，其余默认值14|
 
 ##### （5）控制选项
+|Option|Type|Default|Description|
+|:---:|:---:|:---:|:---|
+|zoomControl|Boolean|true|缩放控制是否默认加载在地图上|
+|attributionControl|Boolean|true|属性控制是否默认加载在地图上|
+
+##### （6）动画选项
+|Option|Type|Default|Description|
+|:---:|:---:|:---:|:---|
+|fadeAnimation|Boolean|depends|tile淡出动画是否可用，通常默认在所有浏览器中都支持CSS3 Transitions属性 ，android例外|
+|zoomAnimation|Boolean|depends|tile变焦动画是否可用，通常默认在所有浏览器中都支持CSS3 Transitions属性 ，android例外|
+|zoomAnimationThreshold|Number|4|如果变焦比例超过设定值，不会产生变焦动画|
+|markerZoomAnimation|Boolean|depends|标记是否随地图的变焦操作而放大或缩小，如果被禁用，标记会在动画时消失，通常默认在所有浏览器中都支持CSS3 Transitions属性，android例外|
