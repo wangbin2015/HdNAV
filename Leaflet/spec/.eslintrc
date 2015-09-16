@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "no-unused-vars": 0,
+    "quotes": 0,
+    "no-shadow": 0,
+    "no-irregular-whitespace": 0,
+    "no-console": 0
+  },
+  "globals": {
+    "L": true,
+    "module": false,
+    "define": false,
+    "expect": false,
+    "it": false,
+    "describe": false,
+    "sinon": false,
+    "happen": false,
+    "beforeEach": false,
+    "afterEach": false
+  },
+  "env": {
+    "browser": true
+  }
+}
