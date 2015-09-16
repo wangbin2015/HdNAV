@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="autor" content="Breezy New Media (info@breezy.cz)" />
+<meta name="copyright" content="DeepBlue - free luxury website template 2008" />
+<meta name="description" content=""  />
+<meta name="keywords" content="" />
+<title>海大地图</title>
+<link rel="stylesheet" type="text/css" href="../css/default.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+<link rel="stylesheet" href="../hdmap/hdmap.css" />
+<script src="../hdmap/hdmap.min.js"></script>
+<!-- <base target="_blank"></base> -->
+</head>
+<body>
+<div id="view">
+  <!-- #header (main heading + logo with slogan) -->
+  <div id="head">
+    <!-- main headings with search component -->
+    <div id="main">
+      <h1><a href="../index.html">HDMap</a></h1>
+      <h2><a href="#">简单，快捷，高效</a></h2>
+      <form action="" method="post" id="search">
+        <fieldset>
+        <input type="text" name="" value="搜索" class="button" />
+        <input type="submit" value="" title="Search" class="submit" />
+        </fieldset>
+      </form>
+    </div>
+    <!-- /main headings with search component -->
+    <hr class="hidden" />
+    <!-- main horizontal menu -->
+    <div id="mainMenu">
+      <ul>
+        <li class="active"><a href="../index.html">Web开发<span></span></a></li>
+        <li><a href="#">Android开发<span></span></a></li>
+        <li><a href="#">iOS开发 <span></span></a></li>
+        <li><a href="#">服务接口<span></span></a></li>
+        <li class="fr"><a href="#">公司主页<span></span></a></li>
+        <li class="fr"><a href="#">法律条款<span></span></a></li>
+      </ul>
+    </div>
+    <!-- /main horizontal menu -->
+    <hr class="hidden" />
+    <!-- logo with slogan -->
+    <div id="logo"> <a href="#" class="block">&nbsp;</a>
+      <h2>HDMap简介...</h2>
+    </div>
+    <!-- /logo with slogan -->
+    <hr class="hidden" />
+  </div>
+  <!-- /#header (main heading + logo with slogan) -->
+  <!-- #main content construct -->
+  <div id="content">
+    <!-- #left part of web - main content -->
+    <div id="contentBlock">
+      <!-- #first (main) article -->
+      
+      <!-- /#first (main) article -->
+      <!-- #cols 50:50 -->
+      <div class="col1">
+      <div id="example_id" class="item">
+          <h3>HDMap.TileLayer（Example）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+		      		<td>
+		      			<div id="map1" style="height:200px"></div>
+						<script type="text/javascript">
+							var layer = HDMap.tileLayer('http://hdnav.zicp.net:8008/v1/rastertiles/mix_map/{z}/{x}/{y}.png', {
+								attribution: ''
+							});
+							var map = new HDMap.Map('map1', {
+								center: new HDMap.LatLng(38.92705, 121.6580833),
+								zoom: 13,
+								maxZoom: 17,
+								minZoom: 3,
+								layers: [layer]
+							});
+					
+							HDMap.tileLayer('http://175.25.246.208:8082/maptile-ais/maptile?z={z}&x={x}&y={y}').addTo(map);
+						  </script>
+		      		</td>
+		      	</tr>
+				<tr>
+					<td>
+						<code>
+							//创建地图对象<br/>
+							var map = HDMap.map('map', {<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;center: [38.92705, 121.6580833],<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;zoom: 10<br/>
+							});<br/>
+							//增加栅格图层<br/>
+							HDMap.tileLayer('http://175.25.246.208:8082/maptile-ais/maptile?z={z}&x={x}&y={y}').addTo(map);
+						</code>
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>创建（Creation）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>map创建</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>HDMap.tileLayer( &lt;String&gt; urlTemplate, &lt;TileLayer options&gt; options? )</code>
+					</td>
+					<td>实例化一个砖层对象给定URL模板和选择一个选择对象。</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>选项（Options）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>minZoom</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						最小级别数
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>maxZoom</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						最大级别数
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>tileSize</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						切片尺寸（宽度和高度的像素值，假设切片是正方形的）
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>subdomains</code>
+					</td>
+					<td>
+						<code>String or String[]</code>
+					</td>
+					<td>
+						服务的子域。可以传递一个字符串（其中每一个字母都是一个子域名称）或是一个字符串数组。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>errorTileUrl</code>
+					</td>
+					<td>
+						<code>String</code>
+					</td>
+					<td>
+						图片的URL给出加载错误的位置。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>opacity</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						切片图层的透明度。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>zIndex</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						切片图层明确的叠置顺序，默认此项不会被设置。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>unloadInvisibleTiles</code>
+					</td>
+					<td>
+						<code>Boolean</code>
+					</td>
+					<td>
+						如果此项为true，在平移后所有看不到的切片都会被移除（用以更好地显示），在移动设备的webkit中默认是true，其他的默认为false。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>updateWhenIdle</code>
+					</td>
+					<td>
+						<code>Boolean</code>
+					</td>
+					<td>
+						如果此项为false，在平移过程中新的切片将会载入，其他的在其后载入（用以更好地显示），在移动设备webKit中默认是true，其他默认false。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>detectRetina</code>
+					</td>
+					<td>
+						<code>Boolean</code>
+					</td>
+					<td>
+						如果此项为true，并且用户是视网膜显示模式，会请求规定大小一般的四个切片和一个地区内一个更大的缩放级别来利用高分辨率。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+		<div class="item">
+          <h3>事件（Events）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>loading</code>
+					</td>
+					<td>
+						<code>Event</code>
+					</td>
+					<td>
+						当切片图层开始加载切片时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>load</code>
+					</td>
+					<td>
+						<code>Event</code>
+					</td>
+					<td>
+						当切片图层加载完可见切片后触发。
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<code>tileload</code>
+					</td>
+					<td>
+						<code>TileEvent</code>
+					</td>
+					<td>
+						在加载切片时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>tileunload</code>
+					</td>
+					<td>
+						<code>TileEvent</code>
+					</td>
+					<td>
+						在切片被移除时触发（比如打开了unloadInvisibleTiles）。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>方法（Methods）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>addTo()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						将图层加到地图上。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>bringToFront()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						将此切片图层放到所有切片图层之上。
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<code>bringToBack()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						将此切片图层放到所有切片图层之下。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>setOpacity()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						改变切片图层的透明度。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>setZIndex()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						设置切片图层的叠放顺序。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>redraw()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						清除所有的切片并重新向服务端申请他们。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>setUrl()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						更新图层的URL模板并重绘他们。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+      </div>
+    </div>
+    <!-- /#left part of web - main content -->
+    <hr class="hidden" />
+    <!-- #right part of web - submenu boxes with simple text -->
+    <div id="menuBlock">
+      <div class="box boxText firstBox">
+        <div class="self">
+          <p class="last">API v1.0.0</p>
+        </div>
+      </div>
+      <div class="box">
+        <!-- <h3>Map Object</h3> -->
+        <ul>
+          <li><a href="../index.html#example_id">HDMap.map</a></li>
+          <li><a href="./marker.html#example_id">HDMap.Marker</a></li>
+          <li><a href="./popup.html#example_id">HDMap.Popup</a></li>
+          <li><a href="#example_id">HDMap.TileLayer</a></li>
+          <li><a href="./path.html#example_id">HDMap.Path</a></li>
+          <li><a href="./polyline.html#example_id">HDMap.Polyline</a></li>
+          <li><a href="./polygon.html#example_id">HDMap.Polygon</a></li>
+          <li><a href="./circle.html#example_id">HDMap.Circle</a></li>
+          <li><a href="./shipLayer.html#example_id">HDMap.ShipLayer</a></li>
+          <li><a href="./localSearch.html#example_id">HDMap.LocalSearch</a></li>
+          <li><a href="./geocoder.html#example_id">HDMap.Geocoder</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /#right part of web -->
+  </div>
+
+  <!-- #footer -->
+  <div id="foot">
+    <p class="fl">&copy; all rights reserved</p>
+    <!-- /#   LINKS AND AUTHOR-SIGNATURE CANNOT BE REMOVED !!! -->
+    <p class="fr">created by&nbsp;<a href="#" class="ico ico-breezy">www.hdnav.cn</a></p>
+  </div>
+  <!-- /#footer -->
+</div>
+</body>
+</html>

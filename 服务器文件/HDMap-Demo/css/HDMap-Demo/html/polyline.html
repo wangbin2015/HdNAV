@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="autor" content="Breezy New Media (info@breezy.cz)" />
+<meta name="copyright" content="DeepBlue - free luxury website template 2008" />
+<meta name="description" content=""  />
+<meta name="keywords" content="" />
+<title>海大地图</title>
+<link rel="stylesheet" type="text/css" href="../css/default.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+<link rel="stylesheet" href="../hdmap/hdmap.css" />
+<script src="../hdmap/hdmap.min.js"></script>
+<!-- <base target="_blank"></base> -->
+</head>
+<body>
+<div id="view">
+  <!-- #header (main heading + logo with slogan) -->
+  <div id="head">
+    <!-- main headings with search component -->
+    <div id="main">
+      <h1><a href="../index.html">HDMap</a></h1>
+      <h2><a href="#">简单，快捷，高效</a></h2>
+      <form action="" method="post" id="search">
+        <fieldset>
+        <input type="text" name="" value="搜索" class="button" />
+        <input type="submit" value="" title="Search" class="submit" />
+        </fieldset>
+      </form>
+    </div>
+    <!-- /main headings with search component -->
+    <hr class="hidden" />
+    <!-- main horizontal menu -->
+    <div id="mainMenu">
+      <ul>
+        <li class="active"><a href="../index.html">Web开发<span></span></a></li>
+        <li><a href="#">Android开发<span></span></a></li>
+        <li><a href="#">iOS开发 <span></span></a></li>
+        <li><a href="#">服务接口<span></span></a></li>
+        <li class="fr"><a href="#">公司主页<span></span></a></li>
+        <li class="fr"><a href="#">法律条款<span></span></a></li>
+      </ul>
+    </div>
+    <!-- /main horizontal menu -->
+    <hr class="hidden" />
+    <!-- logo with slogan -->
+    <div id="logo"> <a href="#" class="block">&nbsp;</a>
+      <h2>HDMap简介...</h2>
+    </div>
+    <!-- /logo with slogan -->
+    <hr class="hidden" />
+  </div>
+  <!-- /#header (main heading + logo with slogan) -->
+  <!-- #main content construct -->
+  <div id="content">
+    <!-- #left part of web - main content -->
+    <div id="contentBlock">
+      <!-- #first (main) article -->
+      
+      <!-- /#first (main) article -->
+      <!-- #cols 50:50 -->
+      <div class="col1">
+      <div id="example_id" class="item">
+          <h3>HDMap.Polyline（Example）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+		      		<td>
+		      			<div id="map1" style="height:200px"></div>
+						<script type="text/javascript">
+							var layer = HDMap.tileLayer('http://190.0.0.29/v1/rastertiles/mix_map/{z}/{x}/{y}.png', {
+								attribution: ''
+							});
+							var map = new HDMap.Map('map1', {
+								center: new HDMap.LatLng(38.92705, 121.6580833),
+								zoom: 13,
+								maxZoom: 17,
+								minZoom: 3,
+								layers: [layer]
+							});
+
+							var polyline = HDMap.polyline([[38.92705, 121.7580833],[38.62705, 121.8580833],[38.82705, 122.3580833]], {color: 'red'}).addTo(map);
+							map.fitBounds(polyline.getBounds());
+						  </script>
+		      		</td>
+		      	</tr>
+				<tr>
+					<td>
+						<code>
+							//创建地图对象<br/>
+							var map = HDMap.map('map', {<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;center: [38.92705, 121.6580833],<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;zoom: 10<br/>
+							});<br/>
+							//创建折线<br/>
+							var polyline = HDMap.polyline([<br/>&nbsp;&nbsp;&nbsp;&nbsp;[38.92705, 121.7580833],<br/>&nbsp;&nbsp;&nbsp;&nbsp;[38.62705, 121.8580833],<br/>&nbsp;&nbsp;&nbsp;&nbsp;[38.82705, 122.3580833]],<br/>&nbsp;&nbsp;&nbsp;&nbsp;{color: 'red'}).addTo(map);<br/>
+							//自适应地图窗口<br/>
+							map.fitBounds(polyline.getBounds());
+						</code>
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>创建（Creation）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>折线创建</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>HDMap.polyline( &lt;LatLng[]&lt; latlngs, &lt;Polyline options&lt; options? )</code>
+					</td>
+					<td>实例化一个多段线对象数组的地理点,选择一个选择对象。</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>选项（Options）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>smoothFactor</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						决定每一个缩放级别上线段简化程度。如果大的话意味着更好的表现和看起来更光滑，小的话意味更准确地表示。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>noClip</code>
+					</td>
+					<td>
+						<code>Boolean</code>
+					</td>
+					<td>
+						不允许线段裁剪。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+		
+        <div class="item">
+          <h3>方法（Methods）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>addLatLng()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						向线段添加一个点。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>setLatLngs()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						用所给的地理点的数组替代线段上的点。
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<code>getLatLngs()</code>
+					</td>
+					<td>
+						<code>LatLng[]</code>
+					</td>
+					<td>
+						返回路径上的点组成的数组。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>spliceLatLngs()</code>
+					</td>
+					<td>
+						<code>LatLng[]</code>
+					</td>
+					<td>
+						允许添加、移除和更改线段上的点。同Array#splice的语法一致。返回移除点组成的数组。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>getBounds()</code>
+					</td>
+					<td>
+						<code>LatLngBounds</code>
+					</td>
+					<td>
+						返回线段的经纬度边界。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>更多</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+		      		<td>详情参照：<a href="./path.html#example_id">HDMap.Path</a></td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+      </div>
+    </div>
+    <!-- /#left part of web - main content -->
+    <hr class="hidden" />
+    <!-- #right part of web - submenu boxes with simple text -->
+    <div id="menuBlock">
+      <div class="box boxText firstBox">
+        <div class="self">
+          <p class="last">API v1.0.0</p>
+        </div>
+      </div>
+      <div class="box">
+        <!-- <h3>Map Object</h3> -->
+        <ul>
+          <li><a href="../index.html#example_id">HDMap.map</a></li>
+          <li><a href="./marker.html#example_id">HDMap.Marker</a></li>
+          <li><a href="./popup.html#example_id">HDMap.Popup</a></li>
+          <li><a href="./tileLayer.html#example_id">HDMap.TileLayer</a></li>
+          <li><a href="./path.html#example_id">HDMap.Path</a></li>
+          <li><a href="#example_id">HDMap.Polyline</a></li>
+          <li><a href="./polygon.html#example_id">HDMap.Polygon</a></li>
+          <li><a href="./circle.html#example_id">HDMap.Circle</a></li>
+          <li><a href="./shipLayer.html#example_id">HDMap.ShipLayer</a></li>
+          <li><a href="./localSearch.html#example_id">HDMap.LocalSearch</a></li>
+          <li><a href="./geocoder.html#example_id">HDMap.Geocoder</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /#right part of web -->
+  </div>
+
+  <!-- #footer -->
+  <div id="foot">
+    <p class="fl">&copy; all rights reserved</p>
+    <!-- /#   LINKS AND AUTHOR-SIGNATURE CANNOT BE REMOVED !!! -->
+    <p class="fr">created by&nbsp;<a href="#" class="ico ico-breezy">www.hdnav.cn</a></p>
+  </div>
+  <!-- /#footer -->
+</div>
+</body>
+</html>

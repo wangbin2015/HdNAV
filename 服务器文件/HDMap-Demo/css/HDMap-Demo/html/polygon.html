@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="autor" content="Breezy New Media (info@breezy.cz)" />
+<meta name="copyright" content="DeepBlue - free luxury website template 2008" />
+<meta name="description" content=""  />
+<meta name="keywords" content="" />
+<title>海大地图</title>
+<link rel="stylesheet" type="text/css" href="../css/default.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+<link rel="stylesheet" href="../hdmap/hdmap.css" />
+<script src="../hdmap/hdmap.min.js"></script>
+<!-- <base target="_blank"></base> -->
+</head>
+<body>
+<div id="view">
+  <!-- #header (main heading + logo with slogan) -->
+  <div id="head">
+    <!-- main headings with search component -->
+    <div id="main">
+      <h1><a href="../index.html">HDMap</a></h1>
+      <h2><a href="#">简单，快捷，高效</a></h2>
+      <form action="" method="post" id="search">
+        <fieldset>
+        <input type="text" name="" value="搜索" class="button" />
+        <input type="submit" value="" title="Search" class="submit" />
+        </fieldset>
+      </form>
+    </div>
+    <!-- /main headings with search component -->
+    <hr class="hidden" />
+    <!-- main horizontal menu -->
+    <div id="mainMenu">
+      <ul>
+        <li class="active"><a href="../index.html">Web开发<span></span></a></li>
+        <li><a href="#">Android开发<span></span></a></li>
+        <li><a href="#">iOS开发 <span></span></a></li>
+        <li><a href="#">服务接口<span></span></a></li>
+        <li class="fr"><a href="#">公司主页<span></span></a></li>
+        <li class="fr"><a href="#">法律条款<span></span></a></li>
+      </ul>
+    </div>
+    <!-- /main horizontal menu -->
+    <hr class="hidden" />
+    <!-- logo with slogan -->
+    <div id="logo"> <a href="#" class="block">&nbsp;</a>
+      <h2>HDMap简介...</h2>
+    </div>
+    <!-- /logo with slogan -->
+    <hr class="hidden" />
+  </div>
+  <!-- /#header (main heading + logo with slogan) -->
+  <!-- #main content construct -->
+  <div id="content">
+    <!-- #left part of web - main content -->
+    <div id="contentBlock">
+      <!-- #first (main) article -->
+      
+      <!-- /#first (main) article -->
+      <!-- #cols 50:50 -->
+      <div class="col1">
+      <div id="example_id" class="item">
+          <h3>HDMap.Polygon（Example）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+		      		<td>
+		      			<div id="map1" style="height:200px"></div>
+						<script type="text/javascript">
+							var layer = HDMap.tileLayer('http://190.0.0.29/v1/rastertiles/mix_map/{z}/{x}/{y}.png', {
+								attribution: ''
+							});
+							var map = new HDMap.Map('map1', {
+								center: new HDMap.LatLng(38.92705, 121.6580833),
+								zoom: 13,
+								maxZoom: 17,
+								minZoom: 3,
+								layers: [layer]
+							});
+					
+							var polygon = HDMap.polygon([[38.92705, 121.7580833],[38.62705, 121.8580833],[38.93705, 121.8580833]]);
+							polygon.bindPopup("I am a polygon.").addTo(map);
+							map.fitBounds(polygon.getBounds());
+						  </script>
+		      		</td>
+		      	</tr>
+				<tr>
+					<td>
+						<code>
+							//创建地图对象<br/>
+							var map = HDMap.map('map', {<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;center: [38.92705, 121.6580833],<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;zoom: 10<br/>
+							});<br/>
+							//创建多边形<br/>
+							var polygon = HDMap.polygon([<br/>&nbsp;&nbsp;&nbsp;&nbsp;[38.92705, 121.7580833],<br/>&nbsp;&nbsp;&nbsp;&nbsp;[38.62705, 121.8580833],<br/>&nbsp;&nbsp;&nbsp;&nbsp;[38.93705, 121.8580833]]);<br/>
+							//捆绑popup<br/>
+							polygon.bindPopup("I am a polygon.").addTo(map);<br/>
+							//自适应地图窗口<br/>
+							map.fitBounds(polygon.getBounds());<br/>
+						</code>
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>创建（Creation）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>多边形创建</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>HDMap.polygon( &lt;LatLng[]&lt; latlngs, &lt;Polyline options&lt; options? )</code>
+					</td>
+					<td>实例化一个多边形对象数组的地理点,选择一个选择对象(多线)一样。您还可以创建一个多边形孔通过一个数组的数组latlngs,第一latlngs数组代表外环其余代表了洞内。</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>更多</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+		      		<td>详情参照：<a href="./path.html#example_id">HDMap.Path</a></td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+      </div>
+    </div>
+    <!-- /#left part of web - main content -->
+    <hr class="hidden" />
+    <!-- #right part of web - submenu boxes with simple text -->
+    <div id="menuBlock">
+      <div class="box boxText firstBox">
+        <div class="self">
+          <p class="last">API v1.0.0</p>
+        </div>
+      </div>
+      <div class="box">
+        <!-- <h3>Map Object</h3> -->
+        <ul>
+          <li><a href="../index.html#example_id">HDMap.map</a></li>
+          <li><a href="./marker.html#example_id">HDMap.Marker</a></li>
+          <li><a href="./popup.html#example_id">HDMap.Popup</a></li>
+          <li><a href="./tileLayer.html#example_id">HDMap.TileLayer</a></li>
+          <li><a href="./path.html#example_id">HDMap.Path</a></li>
+          <li><a href="./polyline.html#example_id">HDMap.Polyline</a></li>
+          <li><a href="#example_id">HDMap.Polygon</a></li>
+          <li><a href="./circle.html#example_id">HDMap.Circle</a></li>
+          <li><a href="./shipLayer.html#example_id">HDMap.ShipLayer</a></li>
+          <li><a href="./localSearch.html#example_id">HDMap.LocalSearch</a></li>
+          <li><a href="./geocoder.html#example_id">HDMap.Geocoder</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /#right part of web -->
+  </div>
+
+  <!-- #footer -->
+  <div id="foot">
+    <p class="fl">&copy; all rights reserved</p>
+    <!-- /#   LINKS AND AUTHOR-SIGNATURE CANNOT BE REMOVED !!! -->
+    <p class="fr">created by&nbsp;<a href="#" class="ico ico-breezy">www.hdnav.cn</a></p>
+  </div>
+  <!-- /#footer -->
+</div>
+</body>
+</html>

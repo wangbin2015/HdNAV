@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="autor" content="Breezy New Media (info@breezy.cz)" />
+<meta name="copyright" content="DeepBlue - free luxury website template 2008" />
+<meta name="description" content=""  />
+<meta name="keywords" content="" />
+<title>海大地图</title>
+<link rel="stylesheet" type="text/css" href="../css/default.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+<link rel="stylesheet" href="../hdmap/hdmap.css" />
+<script src="../hdmap/hdmap.min.js"></script>
+<!-- <base target="_blank"></base> -->
+</head>
+<body>
+<div id="view">
+  <!-- #header (main heading + logo with slogan) -->
+  <div id="head">
+    <!-- main headings with search component -->
+    <div id="main">
+      <h1><a href="../index.html">HDMap</a></h1>
+      <h2><a href="#">简单，快捷，高效</a></h2>
+      <form action="" method="post" id="search">
+        <fieldset>
+        <input type="text" name="" value="搜索" class="button" />
+        <input type="submit" value="" title="Search" class="submit" />
+        </fieldset>
+      </form>
+    </div>
+    <!-- /main headings with search component -->
+    <hr class="hidden" />
+    <!-- main horizontal menu -->
+    <div id="mainMenu">
+      <ul>
+        <li class="active"><a href="../index.html">Web开发<span></span></a></li>
+        <li><a href="#">Android开发<span></span></a></li>
+        <li><a href="#">iOS开发 <span></span></a></li>
+        <li><a href="#">服务接口<span></span></a></li>
+        <li class="fr"><a href="#">公司主页<span></span></a></li>
+        <li class="fr"><a href="#">法律条款<span></span></a></li>
+      </ul>
+    </div>
+    <!-- /main horizontal menu -->
+    <hr class="hidden" />
+    <!-- logo with slogan -->
+    <div id="logo"> <a href="#" class="block">&nbsp;</a>
+      <h2>HDMap简介...</h2>
+    </div>
+    <!-- /logo with slogan -->
+    <hr class="hidden" />
+  </div>
+  <!-- /#header (main heading + logo with slogan) -->
+  <!-- #main content construct -->
+  <div id="content">
+    <!-- #left part of web - main content -->
+    <div id="contentBlock">
+      <!-- #first (main) article -->
+      
+      <!-- /#first (main) article -->
+      <!-- #cols 50:50 -->
+      <div class="col1">
+      <div id="example_id" class="item">
+          <h3>HDMap.Marker（Example）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+		      		<td>
+		      			<div id="map1" style="height:200px"></div>
+						<script type="text/javascript">
+							var layer = HDMap.tileLayer('http://190.0.0.29/v1/rastertiles/mix_map/{z}/{x}/{y}.png', {
+								attribution: ''
+							});
+							var map = new HDMap.Map('map1', {
+								center: new HDMap.LatLng(38.92705, 121.6580833),
+								zoom: 13,
+								maxZoom: 17,
+								minZoom: 3,
+								layers: [layer]
+							});
+							var latlng = new HDMap.LatLng(38.92705, 121.6580833);
+							var marker = new HDMap.Marker(latlng);
+							map.addLayer(marker);
+					
+							marker.bindPopup("<p>这里是大连</p>");
+						  </script>
+		      		</td>
+		      	</tr>
+				<tr>
+					<td>
+						<code>
+							//创建地图对象<br/>
+							var map = HDMap.map('map', {<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;center: [38.92705, 121.6580833],<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;zoom: 10<br/>
+							});<br/>
+							
+							//添加marker<br/>
+							HDMap.marker([38.92705, 121.6580833]).addTo(map);
+						</code>
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>创建（Creation）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>map创建</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>HDMap.marker( &lt;LatLng&gt; latlng, &lt;Marker options&gt; options? )</code>
+					</td>
+					<td>实例化一个标记对象地理点,选择一个选择对象。</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        <div class="item">
+          <h3>选项（Options）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>icon</code>
+					</td>
+					<td>
+						<code>HDMap.Icon</code>
+					</td>
+					<td>
+						（图标）：图标类用来表达注记。参加Icon documentation以了解自定义注记图标的详细信息。默认设置为new HDMap.Icon.Default()。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>clickable</code>
+					</td>
+					<td>
+						<code>Boolean</code>
+					</td>
+					<td>
+						（可点击）：如果是false，注记则不产生鼠标事件并表现为底层地图的一部分。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>draggable</code>
+					</td>
+					<td>
+						<code>Boolean</code>
+					</td>
+					<td>
+						（可拖动）：决定注记是否可被鼠标或触摸拖动。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>title</code>
+					</td>
+					<td>
+						<code>String</code>
+					</td>
+					<td>
+						最低地图的缩放级别。覆盖任何minZoom映射层。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>zIndexOffset（）</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						默认情况下，注记图片的叠置顺序由纬度自动设置。如果你想将某一注记放置于其他之上可用这个选项，设置一个较大的值即可，比如1000（或是相反地设置一个较大的负值）。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>opacity</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						（不透明度）：决定注记的不透明度。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>riseOnHover</code>
+					</td>
+					<td>
+						<code>Boolean</code>
+					</td>
+					<td>
+						（凸显）：如果此值为true，则当把鼠标放置于注记之上时，注记会显示与其他注记之上。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>riseOffset</code>
+					</td>
+					<td>
+						<code>Number</code>
+					</td>
+					<td>
+						（凸显补偿）：riseOnHover要素凸显时高度的补偿值。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+        
+        
+        <div class="item">
+          <h3>事件（Events）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>click</code>
+					</td>
+					<td>
+						<code>MouseEvent</code>
+					</td>
+					<td>
+						（点击）：当鼠标点击注记时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>dbclick</code>
+					</td>
+					<td>
+						<code>MouseEvent</code>
+					</td>
+					<td>
+						（双击）：当鼠标双击注记时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>mousedown</code>
+					</td>
+					<td>
+						<code>MouseEvent</code>
+					</td>
+					<td>
+						（鼠标按下）：当鼠标按下鼠标键时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>mouseover</code>
+					</td>
+					<td>
+						<code>MouseEvent</code>
+					</td>
+					<td>
+						（鼠标置于其上）：当鼠标在注记上时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>mouseout</code>
+					</td>
+					<td>
+						<code>MouseEvent</code>
+					</td>
+					<td>
+						（鼠标移出）：当鼠标离开注记时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>contextmenu</code>
+					</td>
+					<td>
+						<code>MouseEvent</code>
+					</td>
+					<td>
+						（文本菜单）：当鼠标右击注记时触发。
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<code>dragstart</code>
+					</td>
+					<td>
+						<code>Event</code>
+					</td>
+					<td>
+						（拖动开始）：当用户拖动注记时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>drag</code>
+					</td>
+					<td>
+						<code>Event</code>
+					</td>
+					<td>
+						（拖动）：当用户拖动注记时不断触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>dragend</code>
+					</td>
+					<td>
+						<code>Event</code>
+					</td>
+					<td>
+						（拖动结束）：当用户停止拖动注记时触发。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>move</code>
+					</td>
+					<td>
+						<code>Event</code>
+					</td>
+					<td>
+						（移动）：当注记通过定义经纬度而移动时触发。新的坐标包含事件参数。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>remove</code>
+					</td>
+					<td>
+						<code>Event</code>
+					</td>
+					<td>
+						（删除）：当注记在地图上被删除时触发。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+
+        <div class="item">
+          <h3>方法（Methods）</h3>
+          <table>
+		      <tbody>
+		      	<tr>
+					<th>选项</th>
+					<th>类型</th>
+					<th>说明</th>
+				</tr>
+				<tr>
+					<td>
+						<code>addTo()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						在地图上添加注记。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>getLatLng()</code>
+					</td>
+					<td>
+						<code>LatLng</code>
+					</td>
+					<td>
+						返回当前注记的地理位置。
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<code>setLatLng()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						将注记位置更改到给定点。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>setIcon()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						更改注记的图标。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>setZIndexOffset()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						更改注记的zIndex offset。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>setOpacity()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						更改注记的透明度。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>update()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						更新注记的位置，在直接更改经纬度对象的坐标时比较有用。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>bindPopup()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						当点击一个注记时绑定一个特定的HTML内容的弹出窗口。你也可以用Marker中的openPopup方法打开绑定的弹出窗口。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>unbindPopup()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						将先前用bindPopup方法绑定的注记取消。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>openPopup()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						打开先前用bindPopup方法绑定的弹出框。
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<code>closePopup()</code>
+					</td>
+					<td>
+						<code>this</code>
+					</td>
+					<td>
+						关闭已打开的注记的弹出框。
+					</td>
+				</tr>
+			    </tbody>
+	        </table>
+        </div>
+      </div>
+    </div>
+    <!-- /#left part of web - main content -->
+    <hr class="hidden" />
+    <!-- #right part of web - submenu boxes with simple text -->
+    <div id="menuBlock">
+      <div class="box boxText firstBox">
+        <div class="self">
+          <p class="last">API v1.0.0</p>
+        </div>
+      </div>
+      <div class="box">
+        <!-- <h3>Map Object</h3> -->
+        <ul>
+          <li><a href="../index.html#example_id">HDMap.map</a></li>
+          <li><a href="#example_id">HDMap.Marker</a></li>
+          <li><a href="./popup.html#example_id">HDMap.Popup</a></li>
+          <li><a href="./tileLayer.html#example_id">HDMap.TileLayer</a></li>
+          <li><a href="./path.html#example_id">HDMap.Path</a></li>
+          <li><a href="./polyline.html#example_id">HDMap.Polyline</a></li>
+          <li><a href="./polygon.html#example_id">HDMap.Polygon</a></li>
+          <li><a href="./circle.html#example_id">HDMap.Circle</a></li>
+          <li><a href="./shipLayer.html#example_id">HDMap.ShipLayer</a></li>
+          <li><a href="./localSearch.html#example_id">HDMap.LocalSearch</a></li>
+          <li><a href="./geocoder.html#example_id">HDMap.Geocoder</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /#right part of web -->
+  </div>
+
+  <!-- #footer -->
+  <div id="foot">
+    <p class="fl">&copy; all rights reserved</p>
+    <!-- /#   LINKS AND AUTHOR-SIGNATURE CANNOT BE REMOVED !!! -->
+    <p class="fr">created by&nbsp;<a href="#" class="ico ico-breezy">www.hdnav.cn</a></p>
+  </div>
+  <!-- /#footer -->
+</div>
+</body>
+</html>
