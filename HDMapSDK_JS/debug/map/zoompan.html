@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../css/screen.css" />
+	<style>
+	#map {
+		width: 600px;
+		height: 400px;
+	}
+	button {
+		min-width: 3em;
+		text-align: center;
+	}
+	</style>
+
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+	<div id="map"></div>
+
+	<div style="position: absolute; left: 620px; top: 10px; z-index: 500">
+		<div><button id="dc">DC</button></div>
+		<div><button id="sf">SF</button></div>
+		<div><button id="trd">TRD</button>(flyTo 20 sec)</div>
+		<div><button id="lnd">LND</button>(fract. zoom)</div>
+		<div><button id="kyiv">KIEV</button>(setView, fract. zoom)</div>
+		<div><button id="stop">stop</button></div>
+		<div id='pos'></div>
+	</div>
+
+	<script type="text/javascript">
+
+		var kyiv = [50.5, 30.5],
+			lnd = [51.51, -0.12],
+			sf = [37.77, -122.42],
+			dc = [38.91, -77.04],
+			trd = [63.41, 10.41];
+
+		var map = HDMap.map('map').setView(dc, 10);
+
+		var tiles = HDMap.tileLayer('http://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+			attribution: '<a href="https://www.mapbox.com/about/maps/">Terms and Feedback</a>',
+			id: 'examples.map-20v6611k'
+		}).addTo(map);
+
+		var marker1 = HDMap.marker(kyiv).addTo(map),
+			marker2 = HDMap.marker(lnd).addTo(map);
+			// marker3 = HDMap.marker(dc).addTo(map),
+			// marker4 = HDMap.marker(sf).addTo(map);
+
+		document.getElementById('dc').onclick = function () { map.flyTo(dc, 10); };
+		document.getElementById('sf').onclick = function () { map.flyTo(sf, 10); };
+		document.getElementById('trd').onclick = function () { map.flyTo(trd, 10, {duration: 20}); };
+		document.getElementById('lnd').onclick = function () { map.flyTo(lnd, 9.25); };
+		document.getElementById('kyiv').onclick = function () { map.setView(kyiv, 9.25); };
+		document.getElementById('stop').onclick = function () { map.stop(); };
+
+		function logEvent(e) { console.log(e.type); }
+
+		map.on('move', function(){
+
+			document.getElementById('pos').innerHTML = map.getCenter() + ' z' + map.getZoom();
+		});
+
+		// map.on('click', logEvent);
+
+		// map.on('movestart', logEvent);
+		// map.on('move', logEvent);
+		// map.on('moveend', logEvent);
+
+		// map.on('zoomstart', logEvent);
+		// map.on('zoomend', logEvent);
+
+	</script>
+</body>
+</html>

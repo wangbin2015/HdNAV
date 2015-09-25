@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<link rel="stylesheet" href="../css/screen.css" />
+
+	<script>
+		L_PREFER_CANVAS = true; // experimental
+	</script>
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+	<div id="map" style="width: 800px; height: 600px; border: 1px solid #ccc"></div>
+    <button onclick="group.removeLayer(path)">Remove path</button>
+    <button onclick="group.removeLayer(circle)">Remove circle</button>
+    <button onclick="group.clearLayers()">Remove all layers</button>
+
+
+	<script src="route.js"></script>
+	<script>
+		var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			osm = HDMap.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
+
+		for (var i = 0, latlngs = [], len = route.length; i < len; i++) {
+			latlngs.push(new HDMap.LatLng(route[i][0], route[i][1]));
+		}
+		var path = new HDMap.Polyline(latlngs);
+
+		var map = new HDMap.Map('map', {layers: [osm]});
+
+		var group = new HDMap.LayerGroup();
+
+		map.fitBounds(new HDMap.LatLngBounds(latlngs));
+
+		var circleLocation = new HDMap.LatLng(51.508, -0.11),
+		circleOptions = {
+		    color: 'red',
+		    fillColor: 'yellow',
+		    fillOpacity: 0.7
+		};
+
+		var circle = new HDMap.Circle(circleLocation, 500000, circleOptions),
+			circleMarker = new HDMap.CircleMarker(circleLocation, {fillColor: 'blue', fillOpacity: 1, stroke: false});
+
+		group.addLayer(circle).addLayer(circleMarker);
+
+		circle.bindPopup('I am a circle');
+		circleMarker.bindPopup('I am a circle marker');
+
+		group.addLayer(path);
+		path.bindPopup('I am a polyline');
+
+		var p1 = latlngs[0],
+			p2 = latlngs[parseInt(len/4)],
+			p3 = latlngs[parseInt(len/3)],
+			p4 = latlngs[parseInt(len/2)],
+			p5 = latlngs[len - 1],
+			polygonPoints = [p1, p2, p3, p4, p5];
+
+		var h1 = new HDMap.LatLng(p1.lat, p1.lng),
+			h2 = new HDMap.LatLng(p2.lat, p2.lng),
+			h3 = new HDMap.LatLng(p3.lat, p3.lng),
+			h4 = new HDMap.LatLng(p4.lat, p4.lng),
+			h5 = new HDMap.LatLng(p5.lat, p5.lng);
+
+		h1.lng += 20;
+		h2.lat -= 5;
+		h3.lat -= 5;
+		h4.lng -= 10;
+		h5.lng -= 8;
+		h5.lat += 10;
+
+		var holePoints = [h5, h4, h3, h2, h1];
+
+		var polygon = new HDMap.Polygon([polygonPoints, holePoints], {
+			fillColor: "#333",
+			color: 'green'
+		});
+		group.addLayer(polygon);
+
+		polygon.bindPopup('I am a polygon');
+
+		map.addLayer(group);
+
+	</script>
+
+</body>
+</html>

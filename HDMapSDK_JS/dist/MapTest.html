@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>HDMap Test</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='hdmap-src.js'></script>
+<link href='hdmap.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+  #hover {position:absolute; bottom:10px; left:10px; z-index:1000;background-color: #ffffff;}
+</style>
+</head>
+<body>
+
+<div id='map'></div>
+<div id='hover'></div>
+
+<script>
+    var layer = HDMap.tileLayer('http://190.0.0.29/v1/rastertiles/mix_map/{z}/{x}/{y}.png', {
+        attribution: ''
+    });
+    var utfGrid = HDMap.utfgridLayer('http://190.0.0.29/v1/rastertiles/mix_grid/{z}/{x}/{y}.json', {
+        resolution: 4
+    });
+
+
+    var mboxLayer = HDMap.tileLayer( 'https://api.mapbox.com/v4/mapbox.pirates/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        minZoom:0,
+        maxZoom:18
+    });
+    var osmLayer = HDMap.tileLayer( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        minZoom:0,
+        maxZoom:18
+    });
+
+	var mixMap = HDMap.tileLayer('http://190.0.0.29/v1/rastertiles/mix_map/{z}/{x}/{y}.png', {
+	    attribution: 'HDmap',
+	    minZoom:3,
+	    maxZoom:17
+	});
+	var mixGrid = HDMap.utfgridLayer('http://190.0.0.29/v1/rastertiles/mix_grid/{z}/{x}/{y}.json', {
+	    resolution:4
+	});
+	var qLayer = HDMap.tileLayer('http://190.0.0.29/v1/rastertiles/14Q2_map/{z}/{x}/{y}.png', {
+	    attribution: 'HDmap',
+	    minZoom:1,
+	    maxZoom:18
+	});
+	var landMap = HDMap.tileLayer('http://190.0.0.29/v1/rastertiles/land_map/{z}/{x}/{y}.png', {
+	    attribution: 'HDmap',
+	    minZoom: 1,
+	    maxZoom: 18
+	});
+	var landGrid = HDMap.utfgridLayer('http://190.0.0.29/v1/rastertiles/land_grid/{z}/{x}/{y}.json', {
+	    resolution: 4
+	});
+
+	var zicpmix = HDMap.tileLayer('http://hdnav.zicp.net:8008/v1/rastertiles/mix_map/{z}/{x}/{y}.png', {
+        attribution: 'HDmap',
+        minZoom:8,
+        maxZoom:16
+	    });
+
+    var zicpmixgrid = HDMap.tileLayer('http://hdnav.zicp.net:8008/v1/rastertiles/mix_grid/{z}/{x}/{y}.png', {
+        attribution: 'HDmap',
+        minZoom:8,
+        maxZoom:16
+    });
+	var zicpSSWL = HDMap.tileLayer('http://hdnav.zicp.net:8008/v1/rastertiles/SSWL_map/{z}/{x}/{y}.png', {
+        attribution: 'HDmap',
+        minZoom:3,
+        maxZoom:16
+	    });
+
+    var zicpland = HDMap.tileLayer('http://hdnav.zicp.net:8008/v1/rastertiles/land_map/{z}/{x}/{y}.png', {
+        attribution: 'HDmap',
+        minZoom:3,
+        maxZoom:16
+    });
+
+    mixGrid.on('click', clickGrid);
+
+    landGrid.on('click', clickGrid);
+    
+    var gridPopup = HDMap.popup();
+
+    function clickGrid(e) {
+
+
+        if (e.data) {
+            if (e.data.NINFOM === undefined) {
+                var searchOption = new HDMap.LocalSearchOptions('http://190.0.0.29:8080/', searchDetilePopup);
+                var searchSettion = new HDMap.LocalSearchSetting(e.data.name_chn, 0, 10);
+                var searcher = new HDMap.LocalSearch(searchOption);
+                searcher.searchNearby(searchSettion, geometryDecode(e.data.geometry),100, 0);
+                gridPopup.setLatLng(geometryDecode(e.data.geometry));
+                gridPopup.setContent("<b>" + e.data.name_chn +  "</b>");
+                gridPopup.openOn(map);
+            }
+            else {
+                gridPopup.setContent(e.data.NINFOM);
+                gridPopup.setLatLng(e.latlng).openOn(map);
+            }
+        } else {
+        }
+    }
+
+    function searchDetilePopup(data){
+        var poiList = data.getPoiList();
+        var cityList = data.getCityList();
+        var totalNum = data.getTotalPoiNum();
+        var curIndex = data.getCurrentPageIndex();
+        var pageSize = data.getPageSize();
+        var totalPageNum = data.getTotalPageNum();
+        // searcher.gotoPage(1);
+
+        if (data._status == 0) {
+            gridPopup.setContent("<b>" + poiList[0].name + "</b><br>电话：" + poiList[0].telephone + "<br>地址：" + poiList[0].address);
+        } else {
+        }
+        gridPopup.openOn(map);
+    }
+
+    function geometryDecode(geometry)
+    {
+        var latlngfromgeo = geometry.replace("POINT(", "").replace(")", "").split(" ");
+        return HDMap.latLng(latlngfromgeo[1], latlngfromgeo[0]);
+    }
+
+    var map = new HDMap.Map('map', {
+        center: new HDMap.LatLng(38.92705, 121.6580833),
+        zoom: 13,
+
+        layers: [mixGrid]
+    });
+
+    function hdmapLocalSearch(text, callResponse)
+    {
+        var searchOption = new HDMap.LocalSearchOptions('http://190.0.0.29:8080/',callResponse);
+        var searchSetting = new HDMap.LocalSearchSetting(text,0,10);
+        var searcher = new HDMap.LocalSearch(searchOption);
+        searcher.searchInCity(searchSetting, '合肥', 0);
+    }
+
+    function formatJSON(result)
+    {
+        var json = {},
+                key, loc, disp = [];
+        var poiList = result.getPoiList();
+        for(var i in poiList)
+        {
+            key = poiList[i].name;
+
+            loc = HDMap.latLng( poiList[i].point.lat, poiList[i].point.lng );
+
+            json[ key ]= loc;	//key,value format
+        }
+
+        return json;
+    }
+
+    map.addControl( new HDMap.Control.Search({
+        sourceData: hdmapLocalSearch,
+        formatData: formatJSON,
+        markerLocation: true,
+        autoType: false,
+        autoCollapse: true,
+        minLength: 2,
+        zoom: 17,
+        initial: false
+    }));
+
+    map.addControl(new HDMap.Control.Scale());
+
+    var layersControl = new HDMap.Control.Layers({
+        'mixmap': mixMap.addTo(map),
+        '14Q2': qLayer,
+        'landmap':landMap,
+        'osm': osmLayer,
+        'mbox': mboxLayer
+		}, {
+			'Some marker':mboxLayer
+		});
+
+		map.addControl(layersControl);
+
+	map.on('baselayerchange', function (e) {
+        switch(e._url)
+        {
+            case mixMap._url:
+                mixGrid.addTo(map);
+                break;
+            case landMap._url:
+                landGrid.addTo(map);
+                break;
+
+        }
+	});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<link rel="stylesheet" href="../css/mobile.css" />
+	<style>
+		.mybox {
+			background-color: red;
+		}
+
+	</style>
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+	<div id="map"></div>
+
+	<script type="text/javascript">
+
+		var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			osm = HDMap.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib}),
+			latlng = new HDMap.LatLng(50.5, 30.51);
+
+		var map = new HDMap.Map('map', {center: latlng, zoom: 15, layers: [osm]});
+
+		//Create a marker, clicking it toggles opacity
+		var marker = new HDMap.Marker(latlng, { icon: new HDMap.DivIcon({ className: 'mybox', iconSize: new HDMap.Point(100,100), html: 'opaque. click to toggle' }) });
+		map.addLayer(marker);
+
+		var visible = true;
+		marker.on('click', function () {
+			if (visible) {
+				marker.setOpacity(0.3);
+				marker._icon.innerHTML = 'transparent';
+			} else {
+				marker.setOpacity(1);
+				marker._icon.innerHTML = 'opaque';
+			}
+			visible = !visible;
+		});
+
+		var marker2 = new HDMap.Marker(new HDMap.LatLng(50.5, 30.52));
+		map.addLayer(marker2);
+		marker2.bindPopup('This is an amazing message. I shouldn\'t of deleted the Ipsum text');
+
+
+	</script>
+</body>
+</html>

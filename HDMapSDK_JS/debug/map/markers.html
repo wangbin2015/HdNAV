@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../css/screen.css" />
+
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+	<div id="map"></div>
+
+	<script type="text/javascript">
+        map = HDMap.map('map', { center: [0, 0], zoom: 3, maxZoom: 4 });
+
+        HDMap.Icon.Default.imagePath = 'http://cdn.hdnav.cn/hdmap-0.7.3/images';
+
+
+        var markerStatic = new HDMap.Marker([0, -10], {
+            draggable: false,
+            title: 'Static'
+        });
+
+        map.addLayer(markerStatic);
+        markerStatic.bindPopup("Static");
+
+
+        var markerDraggable = new HDMap.Marker([0, 10], {
+            draggable: true,
+            title: 'Draggable'
+        });
+
+        map.addLayer(markerDraggable);
+        markerDraggable.bindPopup("Draggable");
+
+        var poly = new HDMap.Polygon([[0, 10], [0, 15.5], [0, 50], [20, 20.5]]);
+        map.addLayer(poly);
+
+
+        markerDraggable.on('click', function(e) {
+            console.log('markerDraggable click');
+        });
+        markerStatic.on('click', function(e) {
+            console.log('markerStatic click');
+        })
+        map.on('click', function(e) {
+            console.log('map click');
+        });
+
+        poly.on('click', function(e) {
+            console.log('poly click');
+        });
+
+        HDMap.tileLayer('http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+            attribution: "Map: Tiles Courtesy of MapQuest (OpenStreetMap, CC-BY-SA)",
+            subdomains: ["otile1","otile2","otile3","otile4"],
+            maxZoom: 12,
+            minZoom: 2
+        }).addTo(map);
+	</script>
+</body>
+</html>

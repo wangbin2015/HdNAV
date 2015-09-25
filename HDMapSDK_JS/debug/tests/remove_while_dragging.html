@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<link rel="stylesheet" href="../css/screen.css" />
+
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+	<div id="map" style="width: 600px; height: 600px; border: 1px solid #ccc"></div>
+
+	<script type="text/javascript">
+
+	var map = HDMap.map('map').setView( [50, 50], 10);
+	var marker = HDMap.marker([50, 50], {draggable: true}).addTo(map);
+
+	setTimeout(function() {
+	    map.removeLayer(marker);
+	}, 3000);
+
+	</script>
+</body>
+</html>

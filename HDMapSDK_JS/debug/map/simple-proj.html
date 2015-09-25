@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../css/screen.css" />
+
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+	<div id="map"></div>
+
+	<script type="text/javascript">
+
+		var map = HDMap.map('map', {
+			crs: HDMap.CRS.Simple
+		}).setView([0, 0], 0);
+
+		HDMap.polygon([
+			[-200, -50],
+			[-40, 250],
+			[200, 100]
+		]).addTo(map);
+
+
+		HDMap.marker([-200, -200]).addTo(map);
+		HDMap.marker([200, -200]).addTo(map);
+		HDMap.marker([200, 200]).addTo(map);
+		HDMap.marker([-200, 200]).addTo(map);
+
+		HDMap.marker([0, 0]).addTo(map);
+
+		HDMap.imageOverlay('http://hdnav.cn/docs/images/logo.png', [[0, 0], [73, 220]]).addTo(map);
+
+		var grid = HDMap.gridLayer({
+			attribution: 'Grid Layer'
+		});
+
+		grid.createTile = function (coords) {
+			var tile = document.createElement('div');
+			tile.innerHTML = [coords.x, coords.y, coords.z].join(', ');
+			tile.style.outline = '1px solid red';
+			tile.style.background = 'white';
+			return tile;
+		};
+
+		map.addLayer(grid);
+
+		HDMap.circle([0, 0], 100, {color: 'red'}).addTo(map);
+
+	</script>
+</body>
+</html>

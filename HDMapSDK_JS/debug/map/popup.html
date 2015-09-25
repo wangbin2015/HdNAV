@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hdmap debug page</title>
+
+  <link rel="stylesheet" href="../../dist/hdmap.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../css/screen.css" />
+
+  <script type="text/javascript" src="../../build/deps.js"></script>
+  <script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <script type="text/javascript">
+
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      osm = HDMap.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
+
+    var map = HDMap.map('map')
+        .setView([50.5, 30.51], 15)
+        .addLayer(osm);
+
+    var features = new HDMap.FeatureGroup([
+      HDMap.marker(getRandomLatLng(map)),
+      HDMap.polyline([
+        getRandomLatLng(map),
+        getRandomLatLng(map),
+        getRandomLatLng(map)
+      ]),
+      HDMap.polygon([
+        getRandomLatLng(map),
+        getRandomLatLng(map),
+        getRandomLatLng(map),
+        getRandomLatLng(map)
+      ])
+    ]);
+
+    features.bindPopup(function(layer){
+      return 'Hdmap ID is ' + layer._hdmap_id;
+    }).addTo(map);
+
+    var content = HDMap.DomUtil.create('p', 'custom-popup');
+    content.innerText = 'I\'m a red polygon';
+
+    var polygon = HDMap.polygon([
+      getRandomLatLng(map),
+      getRandomLatLng(map),
+      getRandomLatLng(map),
+      getRandomLatLng(map)
+    ], {
+      color: 'red'
+    }).bindPopup(content).addTo(map);
+
+    var polyline = HDMap.polyline([
+      getRandomLatLng(map),
+      getRandomLatLng(map),
+      getRandomLatLng(map)
+    ], {
+      color: 'red'
+    }).bindPopup('I\'m a red polyline').addTo(map);
+
+    var marker = HDMap.circleMarker(getRandomLatLng(map), {
+      color: 'red',
+      radius: 25
+    }).bindPopup('I\'m a red circle').addTo(map);
+  </script>
+</body>
+</html>

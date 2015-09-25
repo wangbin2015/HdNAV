@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<link rel="stylesheet" href="../css/screen.css" />
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+	<div id="map" style="width: 800px; height: 600px; border: 1px solid #ccc"></div>
+
+	<script src="route.js"></script>
+	<script>
+		var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			osm = HDMap.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
+
+		var map = new HDMap.Map('map', {layers: [osm]});
+
+		map.addLayer(HDMap.marker(route[0]));
+		map.addLayer(HDMap.marker(route[route.length - 1]));
+
+		var canvas = HDMap.canvas();
+
+		var poly = HDMap.polyline([
+			[[60, 30], [60, 50], [40, 50]],
+			[[20, 50], [20, 70], [0, 70]]
+		], {color: 'red'}).addTo(map).bindPopup('Hello SVG');
+
+		var path = HDMap.polygon([
+			[route, [[50.5, 30.5], [50.5, 40], [40, 40]]],
+			[[[20, 0], [20, 40], [0, 40]]]
+		], {renderer: canvas}).addTo(map).bindPopup('Hello Canvas');
+
+		var circle = HDMap.circle([35, 0], 700000, {color: 'green', renderer: canvas}).addTo(map).bindPopup('Hello Circle');
+		var circleMarker = HDMap.circleMarker([35, 30], {color: 'magenta', radius: 30}).addTo(map).bindPopup('Happy New Year!');
+
+		// map.on('mousemove', function (e) {
+		// 	circle.setLatLng(e.latlng);
+		// });
+
+		map.setView([36, 52], 3);
+
+		var layersControl = new HDMap.Control.Layers({
+		}, {
+			'poly': poly,
+			'path': path,
+			'circle': circle,
+			'circleMarker': circleMarker,
+			'canvas': canvas,
+			'svg': map._renderer,
+		}, {collapsed: false});
+		map.addControl(layersControl);
+	</script>
+</body>
+</html>

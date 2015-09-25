@@ -1,0 +1,238 @@
+describe('Util', function () {
+
+	describe('#extend', function () {
+		var a;
+
+		beforeEach(function () {
+			a = {
+				foo: 5,
+				bar: 'asd'
+			};
+		});
+
+		it('extends the first argument with the properties of the second', function () {
+			HDMap.Util.extend(a, {
+				bar: 7,
+				baz: 3
+			});
+
+			expect(a).to.eql({
+				foo: 5,
+				bar: 7,
+				baz: 3
+			});
+		});
+
+		it('accepts more than 2 arguments', function () {
+			HDMap.Util.extend(a, {bar: 7}, {baz: 3});
+
+			expect(a).to.eql({
+				foo: 5,
+				bar: 7,
+				baz: 3
+			});
+		});
+	});
+
+	describe('#bind', function () {
+		it('returns the given function with the given context', function () {
+			var fn = function () {
+				return this;
+			};
+
+			var fn2 = HDMap.Util.bind(fn, {foo: 'bar'});
+
+			expect(fn2()).to.eql({foo: 'bar'});
+		});
+
+		it('passes additional arguments to the bound function', function () {
+			var fn = sinon.spy(),
+				foo = {},
+				a = {},
+				b = {},
+				c = {};
+
+			var fn2 = HDMap.Util.bind(fn, foo, a, b);
+
+			fn2(c);
+
+			expect(fn.calledWith(a, b, c)).to.be.ok();
+		});
+	});
+
+	describe('#stamp', function () {
+		it('sets a unique id on the given object and returns it', function () {
+			var a = {},
+				id = HDMap.Util.stamp(a);
+
+			expect(typeof id).to.eql('number');
+			expect(HDMap.Util.stamp(a)).to.eql(id);
+
+			var b = {},
+				id2 = HDMap.Util.stamp(b);
+
+			expect(id2).not.to.eql(id);
+		});
+	});
+
+	describe('#falseFn', function () {
+		it('returns false', function () {
+			expect(HDMap.Util.falseFn()).to.be(false);
+		});
+	});
+
+	describe('#formatNum', function () {
+		it('formats numbers with a given precision', function () {
+			expect(HDMap.Util.formatNum(13.12325555, 3)).to.eql(13.123);
+			expect(HDMap.Util.formatNum(13.12325555)).to.eql(13.12326);
+		});
+	});
+
+
+	describe('#getParamString', function () {
+		it('creates a valid query string for appending depending on url input', function () {
+			var a = {
+				url: 'http://example.com/get',
+				obj: {bar: 7, baz: 3},
+				result: '?bar=7&baz=3'
+			};
+
+			expect(HDMap.Util.getParamString(a.obj, a.url)).to.eql(a.result);
+
+			var b = {
+				url: 'http://example.com/get?justone=qs',
+				obj: {bar: 7, baz: 3},
+				result: '&bar=7&baz=3'
+			};
+
+			expect(HDMap.Util.getParamString(b.obj, b.url)).to.eql(b.result);
+
+			var c = {
+				url: undefined,
+				obj: {bar: 7, baz: 3},
+				result: '?bar=7&baz=3'
+			};
+
+			expect(HDMap.Util.getParamString(c.obj, c.url)).to.eql(c.result);
+		});
+	});
+
+	describe('#requestAnimFrame', function () {
+		it('calles a function on next frame, unless canceled', function (done) {
+			var spy = sinon.spy(),
+				foo = {};
+
+			HDMap.Util.requestAnimFrame(spy);
+
+			HDMap.Util.requestAnimFrame(function () {
+				expect(this).to.eql(foo);
+				done();
+			}, foo);
+
+			HDMap.Util.cancelAnimFrame(spy);
+		});
+	});
+
+	describe('#throttle', function () {
+		it('limits execution to not more often than specified time interval', function (done) {
+			var spy = sinon.spy();
+
+			var fn = HDMap.Util.throttle(spy, 20);
+
+			fn();
+			fn();
+			fn();
+
+			expect(spy.callCount).to.eql(1);
+
+			setTimeout(function () {
+				expect(spy.callCount).to.eql(2);
+				done();
+			}, 30);
+		});
+	});
+
+	describe('#splitWords', function () {
+		it('splits words into an array', function () {
+			expect(HDMap.Util.splitWords('foo bar baz')).to.eql(['foo', 'bar', 'baz']);
+		});
+	});
+
+	describe('#setOptions', function () {
+		it('sets specified options on object', function () {
+			var o = {};
+			HDMap.Util.setOptions(o, {foo: 'bar'});
+			expect(o.options.foo).to.eql('bar');
+		});
+
+		it('returns options', function () {
+			var o = {};
+			var r = HDMap.Util.setOptions(o, {foo: 'bar'});
+			expect(r).to.equal(o.options);
+		});
+
+		it('accepts undefined', function () {
+			var o = {};
+			HDMap.Util.setOptions(o, undefined);
+			expect(o.options).to.eql({});
+		});
+
+		it('creates a distinct options object', function () {
+			var opts = {},
+				o = HDMap.Util.create({options: opts});
+			HDMap.Util.setOptions(o, {});
+			expect(o.options).not.to.equal(opts);
+		});
+
+		it("doesn't create a distinct options object if object already has own options", function () {
+			var opts = {},
+				o = {options: opts};
+			HDMap.Util.setOptions(o, {});
+			expect(o.options).to.equal(opts);
+		});
+
+		it('inherits options prototypally', function () {
+			var opts = {},
+				o = HDMap.Util.create({options: opts});
+			HDMap.Util.setOptions(o, {});
+			opts.foo = 'bar';
+			expect(o.options.foo).to.eql('bar');
+		});
+	});
+
+	describe('#template', function () {
+		it('evaluates templates with a given data object', function () {
+			var tpl = 'Hello {foo} and {bar}!';
+
+			var str = HDMap.Util.template(tpl, {
+				foo: 'Vlad',
+				bar: 'Dave'
+			});
+
+			expect(str).to.eql('Hello Vlad and Dave!');
+		});
+		it('does not modify text without a token variable', function () {
+			expect(HDMap.Util.template('foo', {})).to.eql('foo');
+		});
+
+		it('supports templates with double quotes', function () {
+			expect(HDMap.Util.template('He said: "{foo}"!', {
+				foo: 'Hello'
+			})).to.eql('He said: "Hello"!');
+		});
+
+		it('throws when a template token is not given', function () {
+			expect(function () {
+				HDMap.Util.template(undefined, {foo: 'bar'});
+			}).to.throwError();
+		});
+	});
+
+	describe('#isArray', function () {
+		expect(HDMap.Util.isArray([1, 2, 3])).to.be(true);
+		/*eslint no-array-constructor:0*/
+		expect(HDMap.Util.isArray(new Array(1, 2, 3))).to.be(true);
+		expect(HDMap.Util.isArray('blabla')).to.be(false);
+		expect(HDMap.Util.isArray({0: 1, 1: 2})).to.be(false);
+	});
+});

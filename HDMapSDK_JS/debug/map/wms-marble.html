@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<link rel="stylesheet" href="../css/screen.css" />
+
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+	<div id="map" style="width: 1024px; height: 440px; border: 1px solid #ccc"></div>
+
+	<script type="text/javascript">
+		var map = new HDMap.Map('map', {crs: HDMap.CRS.EPSG4326});
+
+		var bluemarble = new HDMap.TileLayer.WMS("http://maps.opengeo.org/geowebcache/service/wms", {
+			layers: 'bluemarble',
+			attribution: "Data &copy; NASA Blue Marble, image service by OpenGeo",
+			minZoom: 0,
+			maxZoom: 5
+		});
+
+		map.addLayer(bluemarble).fitWorld();
+	</script>
+</body>
+</html>

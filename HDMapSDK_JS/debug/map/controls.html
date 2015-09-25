@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hdmap debug page</title>
+
+	<link rel="stylesheet" href="../../dist/hdmap.css" />
+
+	<link rel="stylesheet" href="../css/screen.css" />
+
+	<script type="text/javascript" src="../../build/deps.js"></script>
+	<script src="../hdmap-include.js"></script>
+</head>
+<body>
+
+	<div id="map"></div>
+
+	<script type="text/javascript">
+
+		var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			osm = HDMap.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib}),
+			osm2 = new HDMap.TileLayer(osmUrl, {attribution: 'Hello world'});
+
+		var map = new HDMap.Map('map').addLayer(osm).setView(new HDMap.LatLng(50.5, 30.512), 15);
+
+		var marker = new HDMap.Marker(new HDMap.LatLng(50.5, 30.505), {color: 'red'});
+		map.addLayer(marker);
+		marker.bindPopup("Hdmap is designed with simplicity, performance and usability in mind. It works efficiently across all major desktop and mobile platforms out of the box, taking advantage of HTML5 and CSS3 on modern browsers while still being accessible on older ones.").openPopup();
+
+		var marker2 = new HDMap.Marker(new HDMap.LatLng(50.502, 30.515));
+		map.addLayer(marker2);
+
+		var layersControl = new HDMap.Control.Layers({
+			'OSM': osm,
+			'OSM2': osm2
+		}, {
+			'Some marker': marker,
+			'Another marker': marker2
+		});
+
+		map.addControl(layersControl);
+		map.addControl(new HDMap.Control.Scale());
+
+	</script>
+</body>
+</html>
